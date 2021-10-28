@@ -60,6 +60,22 @@
 				);
 			}
 
+			//新增品牌
+			$scope.save = function(){
+				//$scope.entity = '{name:宝马,firstChar:B}';
+				$http.post("../brand/add.do",$scope.entity).success(
+						function(response){
+							if(response.flag){
+								//成功 刷新数据
+								alert(response.message);
+								$scope.reloadList();//重新加载
+							}else{
+								//失败 提示失败
+								alert(response.message);
+							}
+						}
+				);
+			}
 		})
 	</script>
     
@@ -139,16 +155,16 @@
 			<table class="table table-bordered table-striped"  width="800px">
 		      	<tr>
 		      		<td>品牌名称</td>
-		      		<td><input  class="form-control" placeholder="品牌名称" >  </td>
+		      		<td><input  class="form-control" placeholder="品牌名称" ng-model="entity.name"  >  </td>
 		      	</tr>		      	
 		      	<tr>
 		      		<td>首字母</td>
-		      		<td><input  class="form-control" placeholder="首字母">  </td>
+		      		<td><input  class="form-control" placeholder="首字母" ng-model="entity.firstChar"  >  </td>
 		      	</tr>		      	
 			 </table>				
 		</div>
 		<div class="modal-footer">						
-			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true">保存</button>
+			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="save()">保存</button>
 			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
 		</div>
 	  </div>

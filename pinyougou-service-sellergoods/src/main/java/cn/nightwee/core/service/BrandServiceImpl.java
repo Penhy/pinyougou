@@ -30,6 +30,9 @@ public class BrandServiceImpl implements BrandService{
         return brandDao.selectByExample(null);
     }
 
+    /**
+     * 分页查询
+     */
     @Override
     public PageResult findPage(Integer pageNum, Integer pageSize) {
         //分页插件
@@ -37,5 +40,13 @@ public class BrandServiceImpl implements BrandService{
         //查询
         Page<Brand> p = (Page<Brand>) brandDao.selectByExample(null);
         return new PageResult(p.getTotal(), p.getResult());
+    }
+
+    /**
+     * 添加品牌
+     */
+    @Override
+    public void add(Brand brand) {
+        brandDao.insertSelective(brand);
     }
 }

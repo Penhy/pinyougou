@@ -10,11 +10,9 @@ import java.util.List;
  */
 public interface BrandService {
 
-    /**
-     * 查询所有
-     * @return List<Brand>
-     */
     public List<Brand> findAll();
 
     public PageResult findPage(Integer pageNum, Integer pageSize);
+
+    public void add(Brand brand);
 }

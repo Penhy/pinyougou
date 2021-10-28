@@ -4,6 +4,8 @@ import cn.nightwee.core.pojo.good.Brand;
 import cn.nightwee.core.service.BrandService;
 import com.alibaba.dubbo.config.annotation.Reference;
 import entity.PageResult;
+import entity.Result;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,10 +30,24 @@ public class BrandController {
     }
 
     /**
-     * 分页查询查询品牌结果集
+     * 分页查询品牌结果集
      */
     @RequestMapping("/findPage")
     public PageResult findPage(Integer pageNum, Integer pageSize) {
         return brandService.findPage(pageNum, pageSize);
+    }
+
+    /**
+     * 添加品牌
+     */
+    @RequestMapping("/add")
+    public Result add(@RequestBody Brand brand) {
+        try {
+            brandService.add(brand);
+            return new Result(true, "增加成功");
+        }catch (Exception e) {
+            e.getStackTrace();
+            return new Result(false, "增加失败");
+        }
     }
 }
