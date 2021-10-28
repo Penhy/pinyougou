@@ -1,6 +1,7 @@
 package cn.nightwee.core.service;
 
 import cn.nightwee.core.pojo.good.Brand;
+import entity.PageResult;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface BrandService {
      * @return List<Brand>
      */
     public List<Brand> findAll();
+
+    public PageResult findPage(Integer pageNum, Integer pageSize);
 }

@@ -12,9 +12,13 @@
 	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script src="../plugins/angularjs/angular.min.js"></script>
+	<!-- 分页组件开始 -->
+	<script src="../plugins/angularjs/pagination.js"></script>
+	<link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+	<!-- 分页组件结束 -->
 	<script>
 		//模块 自定义	[] 引入其他模块
-		var app = angular.module("pinyougou",[]);
+		var app = angular.module("pinyougou",['pagination']);
 		//自定义控制器
 		app.controller("brandController",function($scope,$http) {
 			//方法 查询所有
@@ -26,11 +30,41 @@
 					}
 				)
 			}
+			//分页控件配置
+			//currentPage : 当前页
+			//totalItems : 总条数
+			//itemsPerPage :每页数
+			//perPageOptions : 下拉框  更改每页显示条件
+			//onChange : 更改事件:  上面的属性改变就会执行
+			$scope.paginationConf = {
+				currentPage: 1,
+				totalItems: 0,
+				itemsPerPage: 5,
+				perPageOptions: [5,10, 20, 30, 40, 50],
+				onChange: function(){
+					$scope.reloadList();//重新加载
+				}
+			};
+			//重新加载列表 数据
+			$scope.reloadList=function(){
+				//切换页码
+				$scope.findPage( $scope.paginationConf.currentPage, $scope.paginationConf.itemsPerPage);
+			}
+			//分页
+			$scope.findPage=function(page,rows){
+				$http.get('../brand/findPage.do?pageNum='+page+'&pageSize='+rows).success(
+						function(response){
+							$scope.list=response.rows;
+							$scope.paginationConf.totalItems=response.total;//更新总记录数
+						}
+				);
+			}
+
 		})
 	</script>
     
 </head>
-<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="brandController" ng-init="findAll()">
+<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="brandController" >
   <!-- .box-body -->
                     <div class="box-header with-border">
                         <h3 class="box-title">品牌管理</h3>
@@ -87,11 +121,10 @@
 							 
                         </div>
                         <!-- 数据表格 /-->
-                        
-                        
-                        
-                        
-                     </div>
+						<!-- 分页 -->
+						<tm-pagination conf="paginationConf"></tm-pagination>
+
+					</div>
                     <!-- /.box-body -->
          
 <!-- 编辑窗口 -->
