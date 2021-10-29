@@ -15,4 +15,6 @@ public interface BrandService {
     public PageResult findPage(Integer pageNum, Integer pageSize);
 
     public void add(Brand brand);
+
+    public Brand findOne(Long id);
 }

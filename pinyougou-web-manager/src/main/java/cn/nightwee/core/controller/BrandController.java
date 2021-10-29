@@ -50,4 +50,12 @@ public class BrandController {
             return new Result(false, "增加失败");
         }
     }
+
+    /**
+     * 查询一个品牌
+     */
+    @RequestMapping("/findOne")
+    public Brand findOne(Long id) {
+        return brandService.findOne(id);
+    }
 }

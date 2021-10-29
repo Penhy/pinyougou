@@ -30,6 +30,7 @@
 					}
 				)
 			}
+
 			//分页控件配置
 			//currentPage : 当前页
 			//totalItems : 总条数
@@ -45,11 +46,13 @@
 					$scope.reloadList();//重新加载
 				}
 			};
+
 			//重新加载列表 数据
 			$scope.reloadList=function(){
 				//切换页码
 				$scope.findPage( $scope.paginationConf.currentPage, $scope.paginationConf.itemsPerPage);
 			}
+
 			//分页
 			$scope.findPage=function(page,rows){
 				$http.get('../brand/findPage.do?pageNum='+page+'&pageSize='+rows).success(
@@ -75,6 +78,15 @@
 							}
 						}
 				);
+			}
+			
+			//查询一个
+			$scope.findOne = function (id){
+				$http.get("../brand/findOne.do?id="+id).success(
+						function (response){
+							$scope.entity= response;
+						}
+				)
 			}
 		})
 	</script>
@@ -128,7 +140,7 @@
 									      <td>{{entity.name}}</td>
 		                                  <td>{{entity.firstChar}}</td>
 		                                  <td class="text-center">                                           
-		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal"  >修改</button>                                           
+		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" ng-click="findOne(entity.id)" >修改</button>
 		                                  </td>
 			                          </tr>
 			                      </tbody>

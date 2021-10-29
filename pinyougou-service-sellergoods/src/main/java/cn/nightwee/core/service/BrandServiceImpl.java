@@ -49,4 +49,12 @@ public class BrandServiceImpl implements BrandService{
     public void add(Brand brand) {
         brandDao.insertSelective(brand);
     }
+
+    /**
+     * 查询一个品牌
+     */
+    @Override
+    public Brand findOne(Long id) {
+        return brandDao.selectByPrimaryKey(id);
+    }
 }
