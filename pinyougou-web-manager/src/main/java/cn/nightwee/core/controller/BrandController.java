@@ -38,6 +38,14 @@ public class BrandController {
     }
 
     /**
+     * 根据条件查询分页对象
+     */
+    @RequestMapping("/search")
+    public PageResult search(Integer pageNum, Integer pageSize, @RequestBody(required = false) Brand brand) {
+        return brandService.search(pageNum, pageSize, brand);
+    }
+
+    /**
      * 添加品牌
      */
     @RequestMapping("/add")

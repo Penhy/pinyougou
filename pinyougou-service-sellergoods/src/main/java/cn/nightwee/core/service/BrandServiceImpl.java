@@ -2,6 +2,8 @@ package cn.nightwee.core.service;
 
 import cn.nightwee.core.dao.good.BrandDao;
 import cn.nightwee.core.pojo.good.Brand;
+import cn.nightwee.core.pojo.good.BrandQuery;
+import cn.nightwee.core.pojo.good.BrandQuery.Criteria;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -74,5 +76,28 @@ public class BrandServiceImpl implements BrandService{
         for (Long id : ids) {
             brandDao.deleteByPrimaryKey(id);
         }
+    }
+
+    /**
+     * 根据条件查询分页对象
+     */
+    @Override
+    public PageResult search(Integer pageNum, Integer pageSize, Brand brand) {
+        //分页插件
+        PageHelper.startPage(pageNum,pageSize);
+        // 判断是否有条件需要查询
+        BrandQuery brandQuery = new BrandQuery();
+        if (null != brand) {
+            Criteria createCriteria = brandQuery.createCriteria();
+            if (null != brand.getName() && !"".equals(brand.getName().trim())) {
+                createCriteria.andNameLike("%" + brand.getName().trim() + "%");
+            }
+            if(null != brand.getFirstChar() && !"".equals(brand.getFirstChar().trim())){
+                createCriteria.andFirstCharEqualTo(brand.getFirstChar().trim());
+            }
+        }
+        //查询
+        Page<Brand> p = (Page<Brand>) brandDao.selectByExample(brandQuery);
+        return new PageResult(p.getTotal(), p.getResult());
     }
 }

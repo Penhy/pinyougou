@@ -21,4 +21,6 @@ public interface BrandService {
     void update(Brand brand);
 
     void delete(Long[] ids);
+
+    PageResult search(Integer pageNum, Integer pageSize, Brand brand);
 }
