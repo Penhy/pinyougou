@@ -63,10 +63,16 @@
 				);
 			}
 
-			//新增品牌
+			//新增品牌 修改品牌
 			$scope.save = function(){
+				var methodName = "add"
+
+				if ($scope.entity.id != null) {
+					var methodName = "update"
+				}
+
 				//$scope.entity = '{name:宝马,firstChar:B}';
-				$http.post("../brand/add.do",$scope.entity).success(
+				$http.post("../brand/"+methodName+".do",$scope.entity).success(
 						function(response){
 							if(response.flag){
 								//成功 刷新数据

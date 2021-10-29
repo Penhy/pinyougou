@@ -57,4 +57,12 @@ public class BrandServiceImpl implements BrandService{
     public Brand findOne(Long id) {
         return brandDao.selectByPrimaryKey(id);
     }
+
+    /**
+     * 修改品牌
+     */
+    @Override
+    public void update(Brand brand) {
+        brandDao.updateByPrimaryKeySelective(brand);
+    }
 }

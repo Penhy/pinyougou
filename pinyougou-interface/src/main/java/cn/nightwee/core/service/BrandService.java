@@ -17,4 +17,6 @@ public interface BrandService {
     public void add(Brand brand);
 
     public Brand findOne(Long id);
+
+    public void update(Brand brand);
 }

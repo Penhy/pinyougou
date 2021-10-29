@@ -52,6 +52,20 @@ public class BrandController {
     }
 
     /**
+     * 修改品牌
+     */
+    @RequestMapping("/update")
+    public Result update(@RequestBody Brand brand) {
+        try {
+            brandService.update(brand);
+            return new Result(true, "修改成功");
+        }catch (Exception e) {
+            e.getStackTrace();
+            return new Result(false, "修改失败");
+        }
+    }
+
+    /**
      * 查询一个品牌
      */
     @RequestMapping("/findOne")
