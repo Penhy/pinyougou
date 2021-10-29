@@ -10,13 +10,15 @@ import java.util.List;
  */
 public interface BrandService {
 
-    public List<Brand> findAll();
+    List<Brand> findAll();
 
-    public PageResult findPage(Integer pageNum, Integer pageSize);
+    PageResult findPage(Integer pageNum, Integer pageSize);
 
-    public void add(Brand brand);
+    void add(Brand brand);
 
-    public Brand findOne(Long id);
+    Brand findOne(Long id);
 
-    public void update(Brand brand);
+    void update(Brand brand);
+
+    void delete(Long[] ids);
 }

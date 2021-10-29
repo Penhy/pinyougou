@@ -65,4 +65,14 @@ public class BrandServiceImpl implements BrandService{
     public void update(Brand brand) {
         brandDao.updateByPrimaryKeySelective(brand);
     }
+
+    /**
+     * 删除品牌
+     */
+    @Override
+    public void delete(Long[] ids) {
+        for (Long id : ids) {
+            brandDao.deleteByPrimaryKey(id);
+        }
+    }
 }
