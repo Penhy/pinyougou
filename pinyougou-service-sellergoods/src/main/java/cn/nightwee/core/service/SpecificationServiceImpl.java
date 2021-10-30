@@ -1,7 +1,9 @@
 package cn.nightwee.core.service;
 
 import cn.nightwee.core.dao.specification.SpecificationDao;
+import cn.nightwee.core.dao.specification.SpecificationOptionDao;
 import cn.nightwee.core.pojo.specification.Specification;
+import cn.nightwee.core.pojo.specification.SpecificationOption;
 import cn.nightwee.core.pojo.specification.SpecificationQuery;
 import cn.nightwee.core.pojo.specification.SpecificationQuery.Criteria;
 import com.alibaba.dubbo.config.annotation.Service;
@@ -10,6 +12,9 @@ import com.github.pagehelper.PageHelper;
 import entity.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import pojogroup.SpecificationVo;
+
+import java.util.List;
 
 /**
  * 规格管理
@@ -21,7 +26,12 @@ public class SpecificationServiceImpl implements SpecificationService{
 
     @Autowired
     private SpecificationDao specificationDao;
+    @Autowired
+    private SpecificationOptionDao specificationOptionDao;
 
+    /**
+     * 分页搜索 带条件
+     */
     @Override
     public PageResult search(Integer page, Integer rows, Specification specification) {
         //分页插件
@@ -38,5 +48,22 @@ public class SpecificationServiceImpl implements SpecificationService{
         Page<Specification> p = (Page<Specification>) specificationDao.selectByExample(specificationQuery);
 
         return new PageResult(p.getTotal(),p.getResult());
+    }
+
+    /**
+     * 规格添加
+     */
+    @Override
+    public void add(SpecificationVo vo) {
+        //规格表   返回id
+        specificationDao.insertSelective(vo.getSpecification());
+        //规格选项结果集
+        List<SpecificationOption> specificationOptionList = vo.getSpecificationOptionList();
+        for (SpecificationOption specificationOption : specificationOptionList) {
+            //外键
+            specificationOption.setSpecId(vo.getSpecification().getId());
+            //保存
+            specificationOptionDao.insertSelective(specificationOption);
+        }
     }
 }
