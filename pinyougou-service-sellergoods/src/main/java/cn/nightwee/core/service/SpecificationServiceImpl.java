@@ -4,6 +4,7 @@ import cn.nightwee.core.dao.specification.SpecificationDao;
 import cn.nightwee.core.dao.specification.SpecificationOptionDao;
 import cn.nightwee.core.pojo.specification.Specification;
 import cn.nightwee.core.pojo.specification.SpecificationOption;
+import cn.nightwee.core.pojo.specification.SpecificationOptionQuery;
 import cn.nightwee.core.pojo.specification.SpecificationQuery;
 import cn.nightwee.core.pojo.specification.SpecificationQuery.Criteria;
 import com.alibaba.dubbo.config.annotation.Service;
@@ -65,5 +66,23 @@ public class SpecificationServiceImpl implements SpecificationService{
             //保存
             specificationOptionDao.insertSelective(specificationOption);
         }
+    }
+
+    /**
+     * 查询一个规格
+     */
+    @Override
+    public SpecificationVo findOne(Long id) {
+        SpecificationVo vo = new SpecificationVo();
+        //规格表
+        Specification specification = specificationDao.selectByPrimaryKey(id);
+        vo.setSpecification(specification);
+        //规格选项结果集
+        SpecificationOptionQuery query = new SpecificationOptionQuery();
+        query.createCriteria().andSpecIdEqualTo(id);
+        query.setOrderByClause("orders desc");        //排序query
+        List<SpecificationOption> specificationOptionList = specificationOptionDao.selectByExample(query);
+        vo.setSpecificationOptionList(specificationOptionList);
+        return vo;
     }
 }

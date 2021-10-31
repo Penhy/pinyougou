@@ -13,4 +13,6 @@ public interface SpecificationService {
     PageResult search(Integer page, Integer rows, Specification specification);
 
     void add(SpecificationVo vo);
+
+    SpecificationVo findOne(Long id);
 }

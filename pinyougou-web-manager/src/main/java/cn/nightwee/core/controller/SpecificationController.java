@@ -42,4 +42,12 @@ public class SpecificationController {
             return new Result(true, "增加失败");
         }
     }
+
+    /**
+     * 查询一个规格
+     */
+    @RequestMapping("/findOne")
+    public SpecificationVo findOne(Long id) {
+        return specificationService.findOne(id);
+    }
 }
