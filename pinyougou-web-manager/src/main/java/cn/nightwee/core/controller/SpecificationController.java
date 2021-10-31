@@ -64,4 +64,18 @@ public class SpecificationController {
     public SpecificationVo findOne(Long id) {
         return specificationService.findOne(id);
     }
+
+    /**
+     * 规格删除
+     */
+    @RequestMapping("/delete")
+    public Result delete(Long[] ids) {
+        try {
+            specificationService.delete(ids);
+            return new Result(true, "删除成功");
+        }catch (Exception e) {
+            e.getStackTrace();
+            return new Result(false, "删除失败");
+        }
+    }
 }

@@ -17,4 +17,6 @@ public interface SpecificationService {
     SpecificationVo findOne(Long id);
 
     void update(SpecificationVo vo);
+
+    void delete(Long[] ids);
 }
