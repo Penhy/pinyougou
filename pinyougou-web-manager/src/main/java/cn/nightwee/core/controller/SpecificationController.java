@@ -44,6 +44,20 @@ public class SpecificationController {
     }
 
     /**
+     * 规格修改
+     */
+    @RequestMapping("/update")
+    public Result update(@RequestBody SpecificationVo vo) {
+        try {
+            specificationService.update(vo);
+            return new Result(true, "修改成功");
+        }catch (Exception e) {
+            e.getStackTrace();
+            return new Result(true, "修改失败");
+        }
+    }
+
+    /**
      * 查询一个规格
      */
     @RequestMapping("/findOne")

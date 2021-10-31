@@ -85,4 +85,26 @@ public class SpecificationServiceImpl implements SpecificationService{
         vo.setSpecificationOptionList(specificationOptionList);
         return vo;
     }
+
+    /**
+     * 规格修改
+     */
+    @Override
+    public void update(SpecificationVo vo) {
+        //规格修改
+        specificationDao.updateByPrimaryKeySelective(vo.getSpecification());
+        //规格选项
+        //1:先删除 外键
+        SpecificationOptionQuery query = new SpecificationOptionQuery();
+        query.createCriteria().andSpecIdEqualTo(vo.getSpecification().getId());
+        specificationOptionDao.deleteByExample(query);
+        //2:再添加
+        List<SpecificationOption> specificationOptionList = vo.getSpecificationOptionList();
+        for (SpecificationOption specificationOption : specificationOptionList) {
+            //外键
+            specificationOption.setSpecId(vo.getSpecification().getId());
+            //保存
+            specificationOptionDao.insertSelective(specificationOption);
+        }
+    }
 }

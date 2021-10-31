@@ -15,4 +15,6 @@ public interface SpecificationService {
     void add(SpecificationVo vo);
 
     SpecificationVo findOne(Long id);
+
+    void update(SpecificationVo vo);
 }
