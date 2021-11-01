@@ -3,6 +3,8 @@ package cn.nightwee.core.dao.good;
 import cn.nightwee.core.pojo.good.Brand;
 import cn.nightwee.core.pojo.good.BrandQuery;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface BrandDao {
@@ -27,4 +29,6 @@ public interface BrandDao {
     int updateByPrimaryKeySelective(Brand record);
 
     int updateByPrimaryKey(Brand record);
+
+    List<Map> selectOptionList();
 }

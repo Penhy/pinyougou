@@ -22,6 +22,9 @@ public class TypeTemplateServiceImpl implements TypeTemplateService{
     @Autowired
     private TypeTemplateDao typeTemplateDao;
 
+    /**
+     * 分页搜索
+     */
     @Override
     public PageResult search(Integer page, Integer rows, TypeTemplate typeTemplate) {
         //分页插件
@@ -39,5 +42,13 @@ public class TypeTemplateServiceImpl implements TypeTemplateService{
         Page<TypeTemplate> p = (Page<TypeTemplate>) typeTemplateDao.selectByExample(typeTemplateQuery);
 
         return new PageResult(p.getTotal(), p.getResult());
+    }
+
+    /**
+     * 添加
+     */
+    @Override
+    public void add(TypeTemplate typeTemplate) {
+        typeTemplateDao.insertSelective(typeTemplate);
     }
 }

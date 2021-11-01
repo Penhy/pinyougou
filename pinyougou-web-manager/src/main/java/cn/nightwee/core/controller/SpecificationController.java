@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pojogroup.SpecificationVo;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * 规格管理
  */
@@ -77,5 +80,13 @@ public class SpecificationController {
             e.getStackTrace();
             return new Result(false, "删除失败");
         }
+    }
+
+    /**
+     * 查询所有规格结果集  返回List<Map>
+     */
+    @RequestMapping("/selectOptionList")
+    public List<Map> selectOptionList() {
+        return specificationService.selectOptionList();
     }
 }

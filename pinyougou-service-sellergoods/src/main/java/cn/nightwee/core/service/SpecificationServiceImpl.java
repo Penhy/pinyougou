@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pojogroup.SpecificationVo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 规格管理
@@ -118,5 +119,13 @@ public class SpecificationServiceImpl implements SpecificationService{
             query.createCriteria().andSpecIdEqualTo(id);
             specificationOptionDao.deleteByExample(query);
         }
+    }
+
+    /**
+     * 查询所有规格结果集  返回List<Map>
+     */
+    @Override
+    public List<Map> selectOptionList() {
+        return specificationDao.selectOptionList();
     }
 }

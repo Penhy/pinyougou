@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 品牌管理
@@ -93,5 +94,13 @@ public class BrandController {
             e.getStackTrace();
             return new Result(false, "删除失败");
         }
+    }
+
+    /**
+     * 查询所有品牌结果集  返回List<Map>
+     */
+    @RequestMapping("/selectOptionList")
+    public List<Map> selectOptionList() {
+        return brandService.selectOptionList();
     }
 }
