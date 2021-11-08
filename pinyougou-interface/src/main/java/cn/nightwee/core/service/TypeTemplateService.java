@@ -11,4 +11,8 @@ public interface TypeTemplateService {
     PageResult search(Integer page, Integer rows, TypeTemplate typeTemplate);
 
     void add(TypeTemplate typeTemplate);
+
+    TypeTemplate findOne(Long id);
+
+    void update(TypeTemplate typeTemplate);
 }

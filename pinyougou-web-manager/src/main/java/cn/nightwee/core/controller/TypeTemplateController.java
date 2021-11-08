@@ -42,4 +42,26 @@ public class TypeTemplateController {
             return new Result(false, "保存失败");
         }
     }
+
+    /**
+     * 查询一个
+     */
+    @RequestMapping("/findOne")
+    public TypeTemplate findOne(Long id) {
+        return typeTemplateService.findOne(id);
+    }
+
+    /**
+     * 修改
+     */
+    @RequestMapping("/update")
+    public Result update(@RequestBody TypeTemplate typeTemplate) {
+        try {
+            typeTemplateService.update(typeTemplate);
+            return new Result(true, "修改成功");
+        }catch (Exception e) {
+            e.getStackTrace();
+            return new Result(false, "修改失败");
+        }
+    }
 }

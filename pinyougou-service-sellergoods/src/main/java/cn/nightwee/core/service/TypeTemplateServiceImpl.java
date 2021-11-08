@@ -51,4 +51,20 @@ public class TypeTemplateServiceImpl implements TypeTemplateService{
     public void add(TypeTemplate typeTemplate) {
         typeTemplateDao.insertSelective(typeTemplate);
     }
+
+    /**
+     * 查询一个
+     */
+    @Override
+    public TypeTemplate findOne(Long id) {
+        return typeTemplateDao.selectByPrimaryKey(id);
+    }
+
+    /**
+     * 修改
+     */
+    @Override
+    public void update(TypeTemplate typeTemplate) {
+        typeTemplateDao.updateByPrimaryKeySelective(typeTemplate);
+    }
 }
