@@ -15,4 +15,6 @@ public interface TypeTemplateService {
     TypeTemplate findOne(Long id);
 
     void update(TypeTemplate typeTemplate);
+
+    void delete(Long[] ids);
 }

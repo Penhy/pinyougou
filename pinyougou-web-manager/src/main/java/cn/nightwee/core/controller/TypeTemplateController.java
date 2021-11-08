@@ -64,4 +64,18 @@ public class TypeTemplateController {
             return new Result(false, "修改失败");
         }
     }
+
+    /**
+     * 删除
+     */
+    @RequestMapping("/delete")
+    public Result delete(Long[] ids) {
+        try {
+            typeTemplateService.delete(ids);
+            return new Result(true, "删除成功");
+        }catch (Exception e) {
+            e.getStackTrace();
+            return new Result(false, "删除失败");
+        }
+    }
 }
